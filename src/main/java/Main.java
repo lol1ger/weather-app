@@ -35,7 +35,8 @@ public class Main {
         // Get weather data
         JSONObject weatherData = getWeatherData(lat, lon);
         assert weatherData != null;
-        System.out.println("It's currently " + (int) weatherData.getJSONObject("main").getDouble("temp") + "°C" + " in " + city);
+        int temp = (int) weatherData.getJSONObject("main").getDouble("temp");
+        System.out.println("It's currently " + temp + "°C" + " in " + city);
         }
 
     private static JSONObject getWeatherData(double lat, double lon) {
@@ -47,8 +48,8 @@ public class Main {
 
             // Read all data
             StringBuilder sb = readDataFromApi(conn);
-
             assert sb != null;
+
             return new JSONObject(sb.toString());
         }
         catch (Exception e) {
@@ -67,9 +68,9 @@ public class Main {
 
             // Read all data
             StringBuilder sb = readDataFromApi(conn);
+            assert sb != null;
 
             // Return City data
-            assert sb != null;
             JSONArray arr = new JSONArray(sb.toString());
 
             return new JSONObject(arr.getJSONObject(0).toString());
